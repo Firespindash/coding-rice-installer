@@ -1,0 +1,14 @@
+<match target="font">
+  <edit name="autohint" mode="assign">
+    <bool>true</bool>
+  </edit>
+  <edit name="hinting" mode="assign">
+    <bool>true</bool>
+  </edit>
+  <edit mode="assign" name="hintstyle">
+    <const>hintslight</const>
+  </edit>
+  <edit mode="assign" name="lcdfilter">
+   <const>lcddefault</const>
+ </edit>
+</match>

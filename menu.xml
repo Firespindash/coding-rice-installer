@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_menu>
+
+<menu id="disk-utilities" label="Disk Utilities">
+	<item label="Disks">
+		<action name="Execute">
+			<command>gnome-disks</command>
+		</action>
+	</item>
+	<item label="USB Image Writer">
+		<action name="Execute">
+			<command>mintstick -m iso</command>
+		</action>
+	</item>
+</menu>
+<menu id="screenshot" label="Screenshot">
+	<item label="Screenshot in 5">
+		<action name="Execute">
+			<command>scrot -d 5 &apos;%Y%m%d-%H%M%S_$wx$h_screenshot.png&apos; -e &apos;mv $f $$(xdg-user-dir PICTURES) ; xviewer $$(xdg-user-dir PICTURES)/$f&apos;</command>
+		</action>
+	</item>
+	<item label="Screenshot in 10">
+		<action name="Execute">
+			<command>scrot -d 10 &apos;%Y%m%d-%H%M%S_$wx$h_screenshot.png&apos; -e &apos;mv $f $$(xdg-user-dir PICTURES) ; xviewer $$(xdg-user-dir PICTURES)/$f&apos;</command>
+		</action>
+	</item>
+	<item label="Screenshot With Selection">
+		<action name="Execute">
+			<command>scrot -s &apos;%Y%m%d-%H%M%S_$wx$h_screenshot.png&apos; -e &apos;mv $f $$(xdg-user-dir PICTURES) ; xviewer $$(xdg-user-dir PICTURES)/$f&apos;</command>
+		</action>
+	</item>
+</menu>
+<menu id="preferences" label="Preferences">
+	<menu id="appearance-config" label="Customize Look and Feel">
+		<item label="Gtk2 Theme">
+			<action name="Execute">
+				<command>lxappearance</command>
+			</action>
+		</item>
+		<item label="Gtk3 Theme">
+			<action name="Execute">
+				<command>xfce4-appearance-settings</command>
+			</action>
+		</item>
+		<item label="Kvantum Manager">
+			<action name="Execute">
+				<command>kvantummanager</command>
+			</action>
+		</item>
+		<item label="Qt5 Settings">
+			<action name="Execute">
+				<command>qt5ct</command>
+			</action>
+		</item>
+		<item label="Openbox">
+			<action name="Execute">
+				<command>obconf</command>
+			</action>
+		</item>
+	</menu>
+	<menu id="openbox-config" label="Openbox">
+		<item label="GUI Menu Editor">
+			<action name="Execute">
+				<command>kickshaw</command>
+			</action>
+		</item>
+		<item label="GUI Keybind Editor">
+			<action name="Execute">
+				<command>obkey</command>
+			</action>
+		</item>
+		<separator/>
+		<item label="Edit autostart">
+			<action name="Execute">
+				<command>exo-open ~/.config/openbox/autostart</command>
+			</action>
+		</item>
+		<item label="Edit menu.xml">
+			<action name="Execute">
+				<command>exo-open ~/.config/openbox/menu.xml</command>
+			</action>
+		</item>
+		<item label="Edit rc.xml">
+			<action name="Execute">
+				<command>exo-open ~/.config/openbox/rc.xml</command>
+			</action>
+		</item>
+	</menu>
+	<menu id="system-settings" label="System">
+		<item label="Audio Settings">
+			<action name="Execute">
+				<command>pavucontrol</command>
+			</action>
+		</item>
+		<item label="Add/Remove Software">
+			<action name="Execute">
+				<command>pamac-manager</command>
+			</action>
+		</item>
+		<item label="Screen Layout">
+			<action name="Execute">
+				<command>arandr</command>
+			</action>
+		</item>
+		<item label="Settings Manager">
+			<action name="Execute">
+				<command>xfce4-settings-manager</command>
+			</action>
+		</item>
+	</menu>
+	<item label="Reconfigure Openbox">
+		<action name="Reconfigure"/>
+	</item>
+	<item label="Restart Openbox">
+		<action name="Restart"/>
+	</item>
+</menu>
+
+<menu id="root-menu" label="Openbox 3">
+	<item label="Terminal">
+		<action name="Execute">
+			<command>gnome-terminal</command>
+		</action>
+	</item>
+	<item label="File Manager">
+		<action name="Execute">
+			<command>exo-open --launch FileManager</command>
+		</action>
+	</item>
+	<item label="Web Browser">
+		<action name="Execute">
+			<command>exo-open --launch WebBrowser</command>
+		</action>
+	</item>
+	<item label="Simple Editor">
+		<action name="Execute">
+			<command>xed</command>
+		</action>
+	</item>
+	<item label="Coding Editor">
+		<action name="Execute">
+			<command>atom</command>
+		</action>
+	</item>
+	<separator/>
+	<menu id="disk-utilities"/>
+	<menu id="screenshot"/>
+	<separator/>
+	<menu id="preferences"/>
+	<item label="Lock Screen">
+		<action name="Execute">
+			<command>lockscreen -- scrot</command>
+		</action>
+	</item>
+	<item label="Exit Openbox">
+		<action name="Execute">
+			<command>oblogout</command>
+		</action>
+	</item>
+</menu>
+
+</openbox_menu>

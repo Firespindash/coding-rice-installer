@@ -1,0 +1,6 @@
+compton &
+~/.config/.fehbg &
+~/.config/polybar/launch.sh &
+xcape -e 'Super_L=Alt_L|F1' &
+/usr/bin/lxpolkit &
+xdg-user-dirs-gtk-update &
