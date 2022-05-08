@@ -1,0 +1,19 @@
+[legacy]
+default-show-menubar=false
+theme-variant='system'
+
+[legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+audible-bell=false
+background-color='rgb(0,0,0)'
+background-transparency-percent=39
+cursor-blink-mode='on'
+cursor-shape='underline'
+default-size-columns=132
+default-size-rows=27
+font='Unifont Medium 14'
+foreground-color='rgb(0,255,0)'
+palette=['rgb(0,0,0)', 'rgb(205,0,0)', 'rgb(0,205,0)', 'rgb(205,205,0)', 'rgb(0,0,238)', 'rgb(205,0,205)', 'rgb(0,205,205)', 'rgb(229,229,229)', 'rgb(127,127,127)', 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(255,255,0)', 'rgb(92,92,255)', 'rgb(255,0,255)', 'rgb(0,255,255)', 'rgb(255,255,255)']
+scrollbar-policy='never'
+use-system-font=false
+use-theme-colors=true
+use-transparent-background=false

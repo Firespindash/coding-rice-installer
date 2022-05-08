@@ -1,113 +1,115 @@
 #!/bin/bash
 
-# An automated script to install a coding rice and theme in Openbox Manjaro
+# An automated script to install a coding rice and theme in Openbox Arch-Based Distros
 # (original setup is from https://github.com/weigert/.dotfiles)
 # Thank you so much Weigert!
 
 reset=$(tput sgr0)
 highlight=$(tput setaf 6)
+sourceIt() { echo "./$1"; source "$1"; }
+
+checkBackup() {
+	if [ -d ~/.config/"$1" ]
+	then
+		if [ -d ~/.config/"$1"-bak ]
+		then
+			rm -rfv ~/.config/"$1"-bak
+		fi
+		\cp -rv ~/.config/"$1" ~/.config/"$1"-bak
+		rm -rfv ~/.config/"$1"
+	fi
+}
 
 echo "${highlight}Ensure you have xorg, openbox and others installed."
 echo "For more info about the packages look inside the script.${reset}"
-# The packages you should have are 'xorg-server xorg-drivers xorg-xinit
-# rxvt-unicode linux-firmware arandr openbox obconf yay git'
-# and maybe 'lightdm' with at least 'lightdm-gtk-greeter'
+# The packages you should already have installed are:
+# 'xorg-server xorg-drivers xorg-xinit rxvt-unicode openbox obconf yay git'
+# and maybe 'lightdm' with at least 'lightdm-gtk-greeter' or other DM
 
-sleep 1
+sleep 2
 
-echo "${highlight}Installing fonts for improve legibility${reset}"
+echo "${highlight}Installing fonts for improved legibility${reset}"
 
-yay -S nerd-fonts-noto-sans-mono ttf-comfortaa ttf-impallari-dosis siji-git ttf-unifont --noconfirm
+yay -S nerd-fonts-noto-sans-mono ttf-comfortaa siji-git ttf-unifont --needed \
+		--noconfirm
+
+sourceIt ttf-impallari-dosis.sh
 
 printf "\n${highlight}Installing the programs${reset}\n\n"
 
-yay -S compton-tryone-git oblogout gnome-terminal-transparency --noconfirm
-sudo pacman -S feh rofi dmenu polybar nautilus firefox zathura atom vlc mpv --noconfirm
+yay -S oblogout gnome-terminal-transparency polybar lxsession-gtk3 --needed \
+		--noconfirm
+sudo pacman -S feh rofi dmenu nautilus firefox zathura atom vlc mpv exo xcape vte3 \
+		xdg-user-dirs-gtk base-devel vte-common libvterm libconfig --needed --noconfirm
+
+curl -Ls https://raw.githubusercontent.com/Firespindash/spectrwm-config/main/compton.sh \
+		-o compton.sh
+chmod +x compton.sh
+sourceIt compton.sh
 
 printf "\n${highlight}Improving font rendering${reset}\n\n"
-# Font rendering in Manjaro is already improved by default
-# For more steps and for advanced configurations see Arch Wiki
+# Font rendering in Manjaro is improved by default
+# For more steps and for advanced configurations see Arch Wiki and the README.md
 
-if [ ! -d ~/.config/fontconfig ]
-then
-	mkdir ~/.config/fontconfig
-fi
+[ ! -d ~/.config/fontconfig ] && mkdir ~/.config/fontconfig
 
-if [ -f ~/.config/fontconfig/fonts.conf ]
-then
-	mv ~/.config/fontconfig/fonts.conf ~/.config/fontconfig/fonts.conf.bak
-fi
+[ -f ~/.config/fontconfig/fonts.conf ] && \ 
+	mv -v ~/.config/fontconfig/fonts.conf ~/.config/fontconfig/fonts.conf.bak
 
-cp fontconf ~/.config/fontconfig/fonts.conf
-sudo cp fontconf /etc/fonts/local.conf
+cp -v fontconf ~/.config/fontconfig/fonts.conf
+sudo cp -v fontconf /etc/fonts/local.conf
 
-if [ -f ~/.Xresources ]
-then
-	mv ~/.Xresources ~/.Xresources.bak
-fi
+[ -f ~/.Xresources ] && mv -v ~/.Xresources ~/.Xresources.bak
 
-cp resources ~/.Xresources
+cp -v resources ~/.Xresources
 
 xrdb -merge ~/.Xresources
 
-printf "\n${highlight}Downloading configuration${reset}\n\n"
+printf "\n${highlight}Downloading configurations${reset}\n\n"
 
 git clone https://github.com/weigert/.dotfiles
 
 # Wallpaper
-if [ ! -f ~/.config/solid.png ]
-then
-	cp .dotfiles/solid.png ~/.config/
-fi
+[ ! -f ~/.config/solid.png ] && cp -v .dotfiles/solid.png ~/.config/
 
 feh --bg-fill ~/.config/solid.png
 
-# Rofi Menu
-cp .dotfiles/.fehbg ~/.config/
+echo '#!/bin/sh' > ~/.config/.fehbg
+echo "'feh' '--bg-fill' '.config/solid.png'" >> ~/.config/.fehbg
+chmod +x ~/.config/.fehbg
 
-cp -r .dotfiles/rofi ~/.config/rofi
+# Rofi Menu
+checkBackup rofi
+
+sed -i '/theme:/d' .dotfiles/rofi/config.rasi
+sed -i 's/}/}\n\n@theme "theme.rasi"/g' .dotfiles/rofi/config.rasi
+
+cp -rv .dotfiles/rofi ~/.config/rofi
 
 # Polybar
-if [ -d ~/.config/polybar ]
-then
-	if [ -d ~/.config/polybar-bak ]
-	then
-		rm -rf ~/.config/polybar-bak
-	fi
-	\cp -r ~/.config/polybar ~/.config/polybar-bak
-	rm -rf ~/.config/polybar
-fi
+checkBackup polybar
 
-cp -r polybar ~/.config/
+cp -rv polybar ~/.config/
 
 # Compton Compositor with Blur Support
+[ -f ~/.config/compton.conf ] && \
+	mv -v ~/.config/compton.conf ~/.config/compton.conf.bak
 
-if [ -f ~/.config/compton.conf ]
-then
-	mv ~/.config/compton.conf ~/.config/compton.conf.bak
-fi
-
-cp compton.conf ~/.config/
+cp -v compton.conf ~/.config/
 
 # Openbox Theme and Configurations
+sudo cp -rv .dotfiles/usr/share/themes/Rice/ /usr/share/themes/
 
-sudo cp -r .dotfiles/usr/share/themes/Rice/ /usr/share/themes/
+cp -v menu.xml	.dotfiles/openbox/
+\cp -v rc.xml .dotfiles/openbox/
+\cp -v autostart .dotfiles/openbox/
+cp -v environment .dotfiles/openbox/
 
-cp menu.xml	.dotfiles/openbox/
-\cp rc.xml .dotfiles/openbox/
-\cp autostart .dotfiles/openbox/
-cp environment .dotfiles/openbox/
+checkBackup openbox
 
-if [ -d ~/.config/openbox ]
-then
-	if [ -d ~/.config/openbox-bak ]
-	then
-		rm -rf ~/.config/openbox-bak
-	fi
-	cp -r ~/.config/openbox ~/.config/openbox-bak
-	rm -rf ~/.config/openbox
-fi
+cp -rv .dotfiles/openbox ~/.config/
 
-cp -r .dotfiles/openbox ~/.config/
+# Terminal Configuration
+dconf load /org/gnome/terminal/ < term-backup
 
-rm -rf .dotfiles
+rm -rf .dotfiles compton.sh
