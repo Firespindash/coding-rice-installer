@@ -1,17 +1,18 @@
 # coding-rice-installer
-A script to install a theme for coding in _Openbox Arch_-Based Distros.
+A script to install a light theme for coding in _Openbox Arch_-Based Distros.
 
 ![openbox_theme](openbox-customization.png)
 
 The original theme and setup is from [Weigert dotfiles](https://github.com/weigert/.dotfiles) I just added some improvements.
 
 ## Installation
-* Clone it and go to terminal;
+* Clone it and go to the terminal;
 * type `cd coding-rice-installer`; 
 * and run `./rice-install.sh`;
-* then reboot your machine.
+* then log out and log in again.
 
 ## Recommendations
+Choose your text editors, _xed_ and other _xapps_ aren't installed by default and _atom_ isn't supported anymore. After you make or choice, change the *menu.xml* file entries for these editors with yours. \
 I recommend to you to configure the terminal to have 132-columns and 27-lines. I also recommend to set the fonts of the applications to one of the new fonts the script installs, and if you know others, install other fonts you would like to use. If you still want better font configuration and rendering I recommend to install the [freetype2-ultimate5](https://aur.archlinux.org/packages/freetype2-ultimate5/) package.
 
 ## Extras

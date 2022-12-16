@@ -31,19 +31,19 @@ sleep 2
 echo "${highlight}Installing fonts for improved legibility${reset}"
 
 yay -S nerd-fonts-noto-sans-mono ttf-comfortaa siji-git ttf-unifont --needed \
-		--noconfirm
+ --noconfirm
 
 sourceIt ttf-impallari-dosis.sh
 
 printf "\n${highlight}Installing the programs${reset}\n\n"
 
 yay -S oblogout gnome-terminal-transparency polybar lxsession-gtk3 --needed \
-		--noconfirm
-sudo pacman -S feh rofi dmenu nautilus firefox zathura atom vlc mpv exo xcape vte3 \
-		xdg-user-dirs-gtk base-devel vte-common libvterm libconfig --needed --noconfirm
+ --noconfirm
+sudo pacman -S feh rofi dmenu nautilus firefox zathura vlc mpv exo xcape vte3 \
+ xdg-user-dirs-gtk base-devel vte-common libvterm libconfig --needed --noconfirm
 
 curl -Ls https://raw.githubusercontent.com/Firespindash/spectrwm-config/main/compton.sh \
-		-o compton.sh
+ -o compton.sh
 chmod +x compton.sh
 sourceIt compton.sh
 
@@ -53,8 +53,7 @@ printf "\n${highlight}Improving font rendering${reset}\n\n"
 
 [ ! -d ~/.config/fontconfig ] && mkdir ~/.config/fontconfig
 
-[ -f ~/.config/fontconfig/fonts.conf ] && \ 
-	mv -v ~/.config/fontconfig/fonts.conf ~/.config/fontconfig/fonts.conf.bak
+[ -f ~/.config/fontconfig/fonts.conf ] && mv -v ~/.config/fontconfig/fonts.conf ~/.config/fontconfig/fonts.conf.bak
 
 cp -v fontconf ~/.config/fontconfig/fonts.conf
 sudo cp -v fontconf /etc/fonts/local.conf
@@ -93,14 +92,14 @@ cp -rv polybar ~/.config/
 
 # Compton Compositor with Blur Support
 [ -f ~/.config/compton.conf ] && \
-	mv -v ~/.config/compton.conf ~/.config/compton.conf.bak
+ mv -v ~/.config/compton.conf ~/.config/compton.conf.bak
 
 cp -v compton.conf ~/.config/
 
 # Openbox Theme and Configurations
 sudo cp -rv .dotfiles/usr/share/themes/Rice/ /usr/share/themes/
 
-cp -v menu.xml	.dotfiles/openbox/
+cp -v menu.xml .dotfiles/openbox/
 \cp -v rc.xml .dotfiles/openbox/
 \cp -v autostart .dotfiles/openbox/
 cp -v environment .dotfiles/openbox/
