@@ -40,7 +40,7 @@ printf "\n${highlight}Installing the programs${reset}\n\n"
 yay -S oblogout gnome-terminal-transparency polybar lxsession-gtk3 --needed \
  --noconfirm
 sudo pacman -S feh rofi dmenu nautilus firefox zathura vlc mpv exo xcape vte3 \
- xdg-user-dirs-gtk base-devel vte-common libvterm libconfig --needed --noconfirm
+ xdg-user-dirs-gtk base-devel vte-common libvterm --needed --noconfirm
 
 curl -Ls https://raw.githubusercontent.com/Firespindash/spectrwm-config/main/compton.sh \
  -o compton.sh
